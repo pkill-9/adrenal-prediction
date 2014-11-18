@@ -1,0 +1,24 @@
+Octave:
+ x = load('norm.mat')
+ thus it is the scalar structure,
+ while 'this' is 
+ this = lvq_classifier('classifier_19steroids.mat')
+ and it is also a scalar structure, 
+ while a.normalization_values.mean is a matrix
+
+
+
+ this = classifier('classifier_19steroids.mat')
+ load('norm.mat')
+ [x1, x2] = get_distance (this, xi)
+
+
+
+
+ two ways:
+ 1) use local matlab to preprocess the data and then generate the mat file and sent it to the cloud to calculate
+ 2) load the data remotely and preprocess and classify on cloud.
+
+
+use the matlab to call the remote code or call the command
+build the web app to handle the data management
