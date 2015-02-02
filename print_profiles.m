@@ -1,11 +1,12 @@
 % Function to print out the steroid levels given an array of profile
 % structures.
 
-function print_profiles (profiles)
+function print_profiles (profiles, output_directory)
     printf ("%d patients.\n", length (profiles));
 
     for profile_index = 1 : length (profiles)
-        file_handle = checked_fopen (profiles (profile_index).index);
+        file_handle = checked_fopen (strcat (output_directory, ...
+              profiles (profile_index).index));
         print_profile (file_handle, profiles (profile_index));
         fclose (file_handle);
     endfor
