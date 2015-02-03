@@ -75,6 +75,8 @@ for i=1:size(xi_norm,1)
     %display_output (round(probs_high*100),title);
     disp(title);
     disp(round(probs_high*100));
+    printf ("probs_low:\n");
+    disp (round (probs_low * 100));
 end
 
 % vim: ft=octave ts=4 sw=4 et

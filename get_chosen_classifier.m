@@ -1,4 +1,4 @@
-function name = get_chosen_classifier (argument_list)
+function [name; code] = get_chosen_classifier (argument_list)
     % name = get_chosen_classifier (argument_list)
     %
     % Returns the filename of the classifier to load, as specified in the
@@ -31,6 +31,7 @@ function name = get_chosen_classifier (argument_list)
     classifier_code = str2num (argument_list {argument_index + 1});
     printf ("classifier code: %d\n", classifier_code);
     name = names (classifier_code, :);
+    code = classifier_code;
 endfunction
 
 % vim: ts=4 sw=4 et
