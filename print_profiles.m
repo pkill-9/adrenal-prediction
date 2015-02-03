@@ -66,7 +66,7 @@ end
 % instead.
 function print_level_if_available (fid, steroid_name, value)
     if (! isnan (value))
-        fprintf (fid, "%s=%d\n", steroid_name, value);
+        fprintf (fid, "%s %d\n", steroid_name, value);
     else
         warning ("No data for %s. Skipping.\n", steroid_name);
     endif

@@ -1,31 +1,31 @@
-an=60
-et=122
-dhea=10
-x16a_dhea=89
-x5_pt=43
-all_5pd=163
-tha=68
-x5a_tha=49
-thb=32
-x5a_thb=0
-thdoc=91
-x5a_thdoc=19
-pd=1318
-x3a5a_17hp=3
-x17_hp=119
-pt=228
-pt_one=16
-ths=32
-f=933
-x6b_oh_cortisol=10288
-thf=1526
-x5a_thf=60
-a_cortol=273
-b_cortol=93
-x11b_oh_andro=57
-x11b_oh_etio=42
-e=525
-the=813
-a_cortolone=513
-b_cortolone=232
-x11_oxo_etio=66
+an 60
+et 122
+dhea 10
+x16a_dhea 89
+x5_pt 43
+all_5pd 163
+tha 68
+x5a_tha 49
+thb 32
+x5a_thb 0
+thdoc 91
+x5a_thdoc 19
+pd 1318
+x3a5a_17hp 3
+x17_hp 119
+pt 228
+pt_one 16
+ths 32
+f 933
+x6b_oh_cortisol 10288
+thf 1526
+x5a_thf 60
+a_cortol 273
+b_cortol 93
+x11b_oh_andro 57
+x11b_oh_etio 42
+e 525
+the 813
+a_cortolone 513
+b_cortolone 232
+x11_oxo_etio 66

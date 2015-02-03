@@ -1,4 +1,4 @@
-function [name; code] = get_chosen_classifier (argument_list)
+function [name code] = get_chosen_classifier (argument_list)
     % name = get_chosen_classifier (argument_list)
     %
     % Returns the filename of the classifier to load, as specified in the
