@@ -60,23 +60,14 @@ case 4
 end
 
 xi_norm = normalize(steroids(:,selection(gc_ms))',classifier_selected);
-ids1 = data.names(selection(gc_ms));
-ids2 = data.indices(selection(gc_ms));
 % how many sample selected
 
 for i=1:size(xi_norm,1)
     [probs_high probs_low] = get_distance (classifier(filename), xi_norm(i,:));
-    
-    if ~strcmp(ids2{i},'')
-        title = strcat(ids1{i},'-',ids2{i});
-    else
-        title = ids1{i};
-    end
-    %display_output (round(probs_high*100),title);
-    disp(title);
-    disp(round(probs_high*100));
-    printf ("probs_low:\n");
-    disp (round (probs_low * 100));
+
+    output_filename = strcat ("./output/original/", data.indices (i));
+    output_file = fopen (output_filename, "wt");
+    fdisp(output_file, round(probs_high*100));
 end
 
 % vim: ft=octave ts=4 sw=4 et
