@@ -15,7 +15,7 @@
 data = get_profile_from_stdin ();
 steroid_levels = data.levels;
 
-xi_normalised_levels = normalize (steroid_levels, classifier_code);
+xi_normalised_levels = normalize (steroid_levels', classifier_code);
 printf ("debug: normalise levels done.\n");
 
 [probs_high probs_low] = get_distance (classifier (classifier_name), ...

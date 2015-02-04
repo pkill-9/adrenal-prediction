@@ -65,11 +65,7 @@ end
 % skips a steroid if it's value is NaN, and prints a warning on stderr
 % instead.
 function print_level_if_available (fid, steroid_name, value)
-    if (! isnan (value))
-        fprintf (fid, "%s %d\n", steroid_name, value);
-    else
-        warning ("No data for %s. Skipping.\n", steroid_name);
-    endif
+    fprintf (fid, "%s %d\n", steroid_name, value);
 end
 
 % vim: ts=4 sw=4 et
