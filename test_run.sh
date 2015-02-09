@@ -13,13 +13,14 @@ fi
 
 for input_file in ./samples/*
 do
-    base_name=`basename ${input_file}`
+    base_name=`basename "${input_file}"`
     output_file="${output_dir}/${base_name}.out"
     diff_file="${output_dir}/${base_name}.diff"
     expected_output="output/original/${base_name}"
 
-    octave -q ./prediction_script.m -c 1 < ${input_file} > ${output_file}
-    diff -u ${expected_output} ${output_file} > ${diff_file}
+    echo -e "debug: output: ${output_file}\ndebug: input: ${input_file}"
+    octave -q ./prediction_script.m -c 1 < "${input_file}" > "${output_file}"
+    diff -u "${expected_output}" "${output_file}" > "${diff_file}"
 
     # diff has a nonzero exit status if the two files differ.
     if test $? != 0
