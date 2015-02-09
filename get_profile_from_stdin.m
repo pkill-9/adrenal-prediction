@@ -31,8 +31,6 @@ function steroid_profile = get_profile_from_stdin ()
         steroid_profile.steroids = [steroid_profile.steroids; steroid];
         steroid_profile.levels = [steroid_profile.levels; level];
         steroid_profile.processed = [steroid_profile.processed; false];
-
-        printf ("debug: steroid: %s, level: %d\n", steroid, level);
     end
 end 
 

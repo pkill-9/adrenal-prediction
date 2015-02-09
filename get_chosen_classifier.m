@@ -29,7 +29,6 @@ function [name code] = get_chosen_classifier (argument_list)
 
     % the classifier code should follow the -c/--classifier flag.
     classifier_code = str2num (argument_list {argument_index + 1});
-    printf ("classifier code: %d\n", classifier_code);
     name = names (classifier_code, :);
     code = classifier_code;
 endfunction
