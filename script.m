@@ -65,7 +65,7 @@ xi_norm = normalize(steroids(:,selection(gc_ms))',classifier_selected);
 for i=1:size(xi_norm,1)
     [probs_high probs_low] = get_distance (classifier(filename), xi_norm(i,:));
 
-    output_filename = strcat ("./output/original/", data.indices (i));
+    output_filename = sprintf ("./output/original/%05d.exp", i);
     output_file = fopen (output_filename, "wt");
     fdisp(output_file, round(probs_high*100));
 end

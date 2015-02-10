@@ -5,8 +5,8 @@ function print_profiles (profiles, output_directory)
     printf ("%d patients.\n", length (profiles));
 
     for profile_index = 1 : length (profiles)
-        file_handle = checked_fopen (strcat (output_directory, ...
-              profiles (profile_index).index));
+        file_name = sprintf ("%s/%05d.in", output_directory, profile_index);
+        file_handle = checked_fopen (file_name);
         print_profile (file_handle, profiles (profile_index));
         fclose (file_handle);
     endfor

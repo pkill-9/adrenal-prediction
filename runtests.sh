@@ -13,10 +13,10 @@ fi
 
 for input_file in ./samples/*
 do
-    base_name=`basename "${input_file}"`
+    base_name=`basename "${input_file}" .in`
     output_file="${output_dir}/${base_name}.out"
     diff_file="${output_dir}/${base_name}.diff"
-    expected_output="output/original/${base_name}"
+    expected_output="output/original/${base_name}.exp"
 
     echo -e "debug: output: ${output_file}\ndebug: input: ${input_file}"
     octave -q ./prediction_script.m -c 1 < "${input_file}" > "${output_file}"
