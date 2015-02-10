@@ -11,7 +11,7 @@ then
     mkdir ${output_dir}
 fi
 
-for input_file in ./samples/*
+for input_file in ./samples/*.in
 do
     base_name=`basename "${input_file}" .in`
     output_file="${output_dir}/${base_name}.out"
