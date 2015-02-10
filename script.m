@@ -66,8 +66,14 @@ for i=1:size(xi_norm,1)
     [probs_high probs_low] = get_distance (classifier(filename), xi_norm(i,:));
 
     output_filename = sprintf ("./output/original/%05d.exp", i);
+    patient_data_filename = sprintf ("./output/original/%05d.src", i);
     output_file = fopen (output_filename, "wt");
+    patient_data_file = fopen (patient_data_filename, "wt");
     fdisp(output_file, round(probs_high*100));
+    write_patient_data (patient_data_file, input (i));
+
+    fclose (output_file);
+    fclose (patient_data_file);
 end
 
 % vim: ft=octave ts=4 sw=4 et

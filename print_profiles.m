@@ -6,9 +6,15 @@ function print_profiles (profiles, output_directory)
 
     for profile_index = 1 : length (profiles)
         file_name = sprintf ("%s/%05d.in", output_directory, profile_index);
+        patient_file_name = sprintf ("%s/%05d.src", output_directory, profile_index);
         file_handle = checked_fopen (file_name);
+        patient_file = checked_fopen (patient_file_name);
+
         print_profile (file_handle, profiles (profile_index));
+        write_patient_data (patient_file, profiles (profile_index));
+
         fclose (file_handle);
+        fclose (patient_file);
     endfor
 end
 
