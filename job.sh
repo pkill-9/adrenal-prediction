@@ -1,7 +1,6 @@
 #!  /bin/bash
 #
-#PBS -q parallel
-#PBS -l nodes=2:ppn=1
+#PBS -q serial
 #PBS -l walltime=00:10:00
 #PBS -m a
 #PBS -M m.signorini@student.unimelb.edu.au
@@ -12,6 +11,9 @@ cd ${PBS_O_WORKDIR}
 module purge
 module load octave/3.8.2
 
-octave -q ./script.m
+input_file="${input_dir}/${base_name}.in"
+output_file="${output_dir}/${base_name}.out"
+
+octave -q ./prediction_script.m --classifier 1 < ${input_file} > ${output_file}
 
 # vim: ts=4 sw=4 et
