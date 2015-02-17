@@ -9,7 +9,9 @@
 
 cd ${PBS_O_WORKDIR}
 
+module purge
 module load octave/3.8.2
-octave -V ./hello.m
+
+octave -q ./script.m
 
 # vim: ts=4 sw=4 et
