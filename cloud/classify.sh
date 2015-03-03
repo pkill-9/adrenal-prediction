@@ -3,12 +3,16 @@ num=$1
 classifier=$2
 # This script is only for classification when the VMs and environment has been launched.
 
-# Get this from NeCTAR cloud dashboard
-export OS_AUTH_URL=https://keystone.rc.nectar.org.au:5000/v2.0/
-export OS_TENANT_ID=eb888a3f907f4e539235aebcac1403dd
-export OS_TENANT_NAME="TeachingCloudComputing-Team2"
-export OS_USERNAME="y.lin1@student.unimelb.edu.au"
-export OS_PASSWORD='Nzc5OTczN2JiZjU0ODRh'
+# read cloud access credentials from a file. This file is provided via the NeCTAR
+# dashboard, under the API access tab, and select EC2 credentials.
+if test ! -e ./ec2rc.sh
+then
+    echo "No ec2rc.sh found in ${PWD}."
+    echo "Unable to launch any VM's without cloud access credentials."
+    exit
+fi
+
+source ./ec2rc.sh
 
 
 ## Get the created instances' ip addresses
