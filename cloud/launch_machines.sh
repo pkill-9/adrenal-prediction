@@ -12,11 +12,16 @@ fi
 
 source ./ec2rc.sh
 
+image_id="ami-000022b3" # Ubuntu 14.04 LTS
+keypair_name="agent-smith"
+
 ## Create the certain number of Nectar instances
 echo 'Creating new images.'
 for (( c=1; c<=$num; c++ ))
 do
-	nova boot --flavor 0 --key-name my_keypair --image 198869c6-d8f5-4972-8085-e2a5dc1e139d --security-group ssh,http,icmp,default --availability-zone melbourne-np "My Test"
+    euca-run-instances --instance-type m1.small --key ${keypair_name} --group ssh,icmp --user-data-file authorized_keys ${image_id}
+    # XXX: dead code, delete ASAP
+#	nova boot --flavor 0 --key-name ${keypair_name} --image ${image_id} --security-group ssh,http,icmp,default "My Test"
 done
 
 nova image-list
