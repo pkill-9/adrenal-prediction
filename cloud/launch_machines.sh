@@ -24,4 +24,4 @@ do
 #	nova boot --flavor 0 --key-name ${keypair_name} --image ${image_id} --security-group ssh,http,icmp,default "My Test"
 done
 
-nova image-list
+# vim: ft=sh ts=4 sw=4 et

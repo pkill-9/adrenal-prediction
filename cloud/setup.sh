@@ -8,6 +8,8 @@
 # way to go.
 
 sudo apt-get install python-novaclient
+sudo apt-get install euca2ools
 sudo apt-get install fabric
+sudo apt-get install python-boto
 
 # vim: ts=4 sw=4 et
