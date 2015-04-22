@@ -15,32 +15,31 @@ ssh_keypair_name = os.environ.get ('SSH_KEYPAIR_NAME')
 # check if the instances and volumes are ready 
 def check_ready():
     for instance in instances:
-        print 'found instance ' + instance.private_dns_name
-        pprint (instance.__dict__)
+        if instance.key_name==ssh_keypair_name:
+            num_retries = 24
+            status = instance.update ()
+            debug_print ('Waiting for VM to start: ' + instance.private_dns_name)
 
-#        if instance.key_name==ssh_keypair_name:
-#            num_retries = 6
-#            status = instance.update ()
-#
-#            while status != 'running':
-#                status = instance.update ()
-#                time.sleep(10)
-#                num_retries-=1
-#                if num_retries < 0:
-#                    break
-#        else:
-#            continue
+            while status != 'running':
+                debug_print ('Still waiting.....')
+                status = instance.update ()
+                time.sleep(10)
+                num_retries-=1
+                if num_retries < 0:
+                    debug_print (instance.private_dns_name + ': Timed out')
+                    break
+        else:
+            continue
 
+def debug_print (message):
+    print (message, file = sys.stderr)
 
 
 if __name__=='__main__':
     # establish connection
-    print 'establishing connection...\n'
     connection=boto.connect_ec2(aws_access_key_id=access_key,aws_secret_access_key=access_secret,
                           is_secure=True,region=region,port=8773,path='/services/Cloud',validate_certs=False)
-    print 'getting all reservations...\n'
     reservations=connection.get_all_reservations()
-    print 'getting instances from reservations...\n'
     instances = [instance for r in reservations for instance in r.instances]
     
     check_ready()
@@ -49,6 +48,9 @@ if __name__=='__main__':
     ips = ''
 
     for instance in instances:
+        if instance.update () != 'running':
+            continue
+
         if instance.key_name == ssh_keypair_name:
             ips +=  instance.ip_address + ','
 

@@ -19,9 +19,14 @@ keypair_name="${SSH_KEYPAIR_NAME}"
 echo 'Creating new images.'
 for (( c=1; c<=$num; c++ ))
 do
-    euca-run-instances --instance-type m1.small --key ${keypair_name} --group default ${image_id}
-    # XXX: dead code, delete ASAP
-#	nova boot --flavor 0 --key-name ${keypair_name} --image ${image_id} --security-group ssh,http,icmp,default "My Test"
+    euca-run-instances --instance-type m1.small --key ${keypair_name} \
+        --group default ${image_id}
 done
+
+# now install necessary packages on the VM's.
+echo "Getting instance ip addresses....."
+ips=$(python connect.py)
+echo "Installing packages on instance(s)"
+fab -H ${ips} -u ubuntu -P install_packages
 
 # vim: ft=sh ts=4 sw=4 et

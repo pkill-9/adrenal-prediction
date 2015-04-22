@@ -1,12 +1,11 @@
 from fabric.api import *
 
 def install_packages ():
-    with hide ('stdout'):
-        run ('sudo apt-get update')
-        run ('sudo apt-get install -y octave')
-        run ('sudo apt-get install -y liboctave-dev')
-        run ('sudo apt-get install -y git')
-        run ('git clone https://github.com/pkill-9/adrenal-prediction.git')
+    run ('sudo apt-get update')
+    run ('sudo apt-get install -y octave')
+    run ('sudo apt-get install -y liboctave-dev')
+    run ('sudo apt-get install -y git')
+    run ('git clone https://github.com/pkill-9/adrenal-prediction.git')
 
 def transmit_data(ip):
     ips = ip.split('_')
