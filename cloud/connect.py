@@ -42,7 +42,6 @@ if __name__ == '__main__':
     # get the id of each instance and volume 
     ips = ''
     for instance in instances:
-        #print instance.private_dns_name
         if instance.private_dns_name == 'my-test':                   
             ips +=  instance.ip_address+','
     ips = ips[:-1]

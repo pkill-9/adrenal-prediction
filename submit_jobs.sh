@@ -14,6 +14,15 @@ then
     mkdir stderr
 fi
 
+# if we are already running the max number of jobs on the cluster, return
+# a failure status to indicate to the client that further jobs must be run
+# on the cloud.
+if test ls "./running-jobs" | wc -l -ge ${MAX_HPC_JOBS}
+then
+    rm -f ${input_file} # input_file needs to be defined.
+    exit 1
+fi
+
 for input_file in ./samples/*.in
 do
     base_name=`basename "${input_file}" .in`
