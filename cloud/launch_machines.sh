@@ -12,11 +12,21 @@ fi
 
 source ./ec2rc.sh
 
+image_id="ami-000022b3" # Ubuntu 14.04 LTS
+keypair_name="${SSH_KEYPAIR_NAME}"
+
 ## Create the certain number of Nectar instances
 echo 'Creating new images.'
 for (( c=1; c<=$num; c++ ))
 do
-	nova boot --flavor 0 --key-name my_keypair --image 198869c6-d8f5-4972-8085-e2a5dc1e139d --security-group ssh,http,icmp,default --availability-zone melbourne-np "My Test"
+    euca-run-instances --instance-type m1.small --key ${keypair_name} \
+        --group default ${image_id}
 done
 
-nova image-list
+# now install necessary packages on the VM's.
+echo "Getting instance ip addresses....."
+ips=$(python connect.py)
+echo "Installing packages on instance(s)"
+fab -H ${ips} -u ubuntu -P install_packages
+
+# vim: ft=sh ts=4 sw=4 et
