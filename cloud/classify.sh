@@ -16,35 +16,21 @@ source ./ec2rc.sh
 
 
 ## Get the created instances' ip addresses
+echo "Finding IP addresses for VM(s)"
 ips=$(python connect.py)
-echo $ips
+echo "Found address(es): $ips"
 
-## Calculate the number of the instances(-1)
-res="${ips//[^,]}"
-
-num=${#res}
-num=$((num+1))
-
-echo "The application will run on: "
-echo $num
-echo " Nectar VMs."
-
-ip=$(echo "$ips" | tr , _)
-
-## Run the Matlab code to load the excel data and split into pieces
-## !!!Need to specify the path that install the Matlab!!!
-# clear
-cd /Applications/MATLAB_R2014a.app/bin
-time ./matlab -nodisplay -nodesktop -r "run ~/Desktop/project/project_1/matlab/load_file($num); quit"
-
+# when we pass the list of ips as a parameter to a fab task, we need to
+# escape the commas, so that the task sees a single argument containing a
+# comma separated list, as opposed to a whole lot of unexpected arguments.
+ips_param=$(echo "$ips" | tr , \\,)
 
 ## Send the octave code and data to the remote hosts in parallel
-## !!!Need to specify the path that contains the scripts!!!
+fab -H $ips -u ubuntu -P transmit_data:$ips_param
 
-cd ~/Desktop/project/project_1/script
 #fab -i my_keypair.pem -H $ips -u ubuntu -P remove_file
 #fab -i my_keypair.pem -H $ips -u ubuntu -P transmit_octave_code
-#fab -i my_keypair.pem -H $ips -u ubuntu -P transmit_data:$ip
+#fab -i my_keypair.pem -H $ips -u ubuntu -P transmit_data:$ips_param
 
 ## Start the classification function on remote hosts in parallel
-time fab -i my_keypair.pem -H $ips -u ubuntu -P classify:$ip,$classifier
+#time fab -i my_keypair.pem -H $ips -u ubuntu -P classify:$ips_param,$classifier
