@@ -86,11 +86,13 @@ class Daemon:
         # will remove the pidfile first.
         atexit.register (self.delpid)
         pid = str (os.getpid ())
+        print "Writing pidfile with pid = " + pid
         file (self.pidfile, "w+").write ("%s\n" % pid)
 
 # *********************************************************
 
     def delpid (self):
+        print "Removing pidfile."
         os.remove (self.pidfile)
 
 # *********************************************************
@@ -103,7 +105,9 @@ class Daemon:
             sys.exit (1)
 
         # start the daemon.
+        print "Starting daemon....."
         self.daemonise ()
+        print "Successfully daemonised."
         self.run ()
 
 # *********************************************************
@@ -115,6 +119,7 @@ class Daemon:
         try:
             pf = file (self.pidfile, "r")
             pid = int (pf.read ().strip ())
+            print "Found daemon pidfile with pid = " + pid
             pf.close ()
 
         except IOError:
@@ -125,14 +130,17 @@ class Daemon:
             return
 
         # terminate the daemon process with a signal.
+        print "Sending SIGTERM....."
         os.kill (pid, SIGTERM)
         time.sleep (1)
 
         if not os.path.exists (self.pidfile):
+            print "pidfile removed, daemon has shut down."
             return
 
         # if the pid file hasn't been removed, then the daemon has not
         # stopped on SIGTERM. Time for extreme prejudice.
+        print "pidfile persists. Sending SIGKILL....."
         os.kill (pid, SIGKILL)
 
 # *********************************************************
@@ -153,7 +161,7 @@ class Daemon:
             # get a list of all the input files in the directory. Any
             # input samples that are not in the running jobs list must be
             # new samples, so we will process them.
-            for sample in os.listdir ("/tmp/input"):
+            for sample in os.listdir ("/tmp/classification/input"):
                 if sample not in running_jobs:
                     # start the job and add to running list
                     self.process_sample (sample)
@@ -162,7 +170,7 @@ class Daemon:
             # now prune the running jobs list of any jobs that have 
             # finished, otherwise we would have a massive memory bomb when
             # the daemon is left running for a long period of time
-            for name in os.listdir ("/tmp/output"):
+            for name in os.listdir ("/tmp/classification/output"):
                 if name in running_jobs:
                     # remove the job from the dictionary and delete the
                     # input file. Note that the octave program may still
@@ -170,7 +178,7 @@ class Daemon:
                     # us to rm it, since the file is only completely
                     # removed once all open handles are closed.
                     del running_jobs [output]
-                    os.remove ("/tmp/input/" + name)
+                    os.remove ("/tmp/classification/input/" + name)
 
             # wait a while before we poll the input dir for more samples.
             time.sleep (10)
@@ -189,7 +197,8 @@ class Daemon:
         # image with the specified command. This is why the fork is 
         # needed; without it we would have clobbered the daemon's process
         # image.
-        env = {"input_dir": "/tmp/input", "output_dir": "/tmp/output", 
+        env = {"input_dir": "/tmp/classification/input", 
+                "output_dir": "/tmp/classification/output", 
                 "base_name": sample}
         os.execle ("cloud-job.sh", env)
 
@@ -198,9 +207,9 @@ class Daemon:
 
 
 if __name__ == "__main__":
-    daemon = Daemon ("/tmp/classification-daemon.pid", 
-            stdout = "/tmp/classification-stdout",
-            stder = "/tmp/classification-stderr")
+    daemon = Daemon ("/tmp/classification/daemon.pid", 
+            stdout = "/tmp/classification/daemon-stdout",
+            stderr = "/tmp/classification/daemon-stderr")
 
     if len (sys.argv) == 2:
         if sys.argv [1] == "start":
