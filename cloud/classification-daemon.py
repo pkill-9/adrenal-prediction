@@ -164,6 +164,7 @@ class Daemon:
             for sample in os.listdir ("/tmp/classification/input"):
                 if sample not in running_jobs:
                     # start the job and add to running list
+                    print "Starting classification for " + sample
                     self.process_sample (sample)
                     running_jobs [sample] = sample
 
@@ -177,6 +178,7 @@ class Daemon:
                     # be reading the input file, but it is still safe for
                     # us to rm it, since the file is only completely
                     # removed once all open handles are closed.
+                    print "Job " + name + " done."
                     del running_jobs [output]
                     os.remove ("/tmp/classification/input/" + name)
 
