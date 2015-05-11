@@ -56,7 +56,7 @@ class Daemon:
             sys.exit (0)
 
         self.redirect_file_descriptors ()
-        write_pidfile (self)
+        self.write_pidfile ()
 
 # *********************************************************
 
@@ -138,8 +138,8 @@ class Daemon:
 # *********************************************************
 
     def restart (self):
-        stop (self)
-        start (self)
+        self.stop ()
+        self.start ()
 
 # *********************************************************
 
@@ -156,7 +156,7 @@ class Daemon:
             for sample in os.listdir ("/tmp/input"):
                 if sample not in running_jobs:
                     # start the job and add to running list
-                    process_sample (self, sample)
+                    self.process_sample (sample)
                     running_jobs [sample] = sample
 
             # now prune the running jobs list of any jobs that have 
@@ -198,7 +198,9 @@ class Daemon:
 
 
 if __name__ == "__main__":
-    daemon = Daemon ("/tmp/classification-daemon.pid")
+    daemon = Daemon ("/tmp/classification-daemon.pid", 
+            stdout = "/tmp/classification-stdout",
+            stder = "/tmp/classification-stderr")
 
     if len (sys.argv) == 2:
         if sys.argv [1] == "start":
