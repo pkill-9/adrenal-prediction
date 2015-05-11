@@ -179,7 +179,7 @@ class Daemon:
                     # us to rm it, since the file is only completely
                     # removed once all open handles are closed.
                     print "Job " + name + " done."
-                    del running_jobs [output]
+                    del running_jobs [name]
                     os.remove ("/tmp/classification/input/" + name)
 
             # wait a while before we poll the input dir for more samples.

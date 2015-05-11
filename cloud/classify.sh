@@ -26,7 +26,7 @@ echo "Found address(es): $ips"
 ips_param=$(echo "$ips" | tr , \\,)
 
 ## Send the octave code and data to the remote hosts in parallel
-fab -H $ips -u ubuntu -P transmit_data:$ips_param
+fab -H $ips -u ubuntu -P classify_samples:$ips_param
 
 #fab -i my_keypair.pem -H $ips -u ubuntu -P remove_file
 #fab -i my_keypair.pem -H $ips -u ubuntu -P transmit_octave_code
