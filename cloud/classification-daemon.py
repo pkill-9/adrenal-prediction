@@ -33,7 +33,7 @@ class Daemon:
             if pid > 0:
                 sys.exit (0)
 
-        except OSError e:
+        except OSError:
             sys.stderr.write ("Failed to daemonise.\n")
             sys.exit (1)
 
@@ -51,11 +51,11 @@ class Daemon:
             if pid > 0:
                 sys.exit (0)
 
-        except OSError e:
+        except OSError:
             sys.stderr.write ("Failed to daemonise at second fork\n")
             sys.exit (0)
 
-        redirect_file_descriptors (self)
+        self.redirect_file_descriptors ()
         write_pidfile (self)
 
 # *********************************************************
@@ -74,7 +74,7 @@ class Daemon:
 
         # replace the standard descriptors with the new ones, closing the
         # old file handles first.
-        os.dup2 (si,fileno (), sys.stdin.fileno ())
+        os.dup2 (si.fileno (), sys.stdin.fileno ())
         os.dup2 (so.fileno (), sys.stdout.fileno ())
         os.dup2 (se.fileno (), sys.stderr.fileno ())
 
