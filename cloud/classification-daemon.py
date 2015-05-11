@@ -9,7 +9,7 @@
 # http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 
 import sys, os, time, atexit
-from signal import SIGTERM, SIGKILL
+import signal
 
 class Daemon:
 
@@ -84,14 +84,14 @@ class Daemon:
         # create a file on the path specified by pidfile, and store our
         # pid in it. Also adds a hook so that when the daemon exits, it
         # will remove the pidfile first.
-        atexit.register (self.delpid)
+        signal.signal (signal.SIGTERM, self.delpid)
         pid = str (os.getpid ())
         print "Writing pidfile with pid = " + pid
         file (self.pidfile, "w+").write ("%s\n" % pid)
 
 # *********************************************************
 
-    def delpid (self):
+    def delpid (self, signal, stack):
         print "Removing pidfile."
         os.remove (self.pidfile)
 
@@ -119,7 +119,7 @@ class Daemon:
         try:
             pf = file (self.pidfile, "r")
             pid = int (pf.read ().strip ())
-            print "Found daemon pidfile with pid = " + pid
+            print "Found daemon pidfile with pid = " + str (pid)
             pf.close ()
 
         except IOError:
@@ -131,7 +131,7 @@ class Daemon:
 
         # terminate the daemon process with a signal.
         print "Sending SIGTERM....."
-        os.kill (pid, SIGTERM)
+        os.kill (pid, signal.SIGTERM)
         time.sleep (1)
 
         if not os.path.exists (self.pidfile):
