@@ -8,7 +8,7 @@
 # Inspired by Sander Marechal's example at 
 # http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 
-import sys, os, time, atexit
+import sys, os, time, atexit, datetime
 import signal
 
 class Daemon:
@@ -86,13 +86,13 @@ class Daemon:
         # will remove the pidfile first.
         signal.signal (signal.SIGTERM, self.delpid)
         pid = str (os.getpid ())
-        print "Writing pidfile with pid = " + pid
+        debug_print ("Writing pidfile with pid = " + pid)
         file (self.pidfile, "w+").write ("%s\n" % pid)
 
 # *********************************************************
 
     def delpid (self, signal, stack):
-        print "Removing pidfile."
+        debug_print ("Removing pidfile.")
         os.remove (self.pidfile)
 
 # *********************************************************
@@ -107,7 +107,7 @@ class Daemon:
         # start the daemon.
         print "Starting daemon....."
         self.daemonise ()
-        print "Successfully daemonised."
+        debug_print ("Successfully daemonised.")
         self.run ()
 
 # *********************************************************
@@ -164,7 +164,7 @@ class Daemon:
             for sample in os.listdir ("/tmp/classification/input"):
                 if sample not in running_jobs:
                     # start the job and add to running list
-                    print "Starting classification for " + sample
+                    debug_print ("Starting classification for " + sample)
                     self.process_sample (sample)
                     running_jobs [sample] = sample
 
@@ -178,7 +178,7 @@ class Daemon:
                     # be reading the input file, but it is still safe for
                     # us to rm it, since the file is only completely
                     # removed once all open handles are closed.
-                    print "Job " + name + " done."
+                    debug_print ("Job " + name + " done.")
                     del running_jobs [name]
                     os.remove ("/tmp/classification/input/" + name)
 
@@ -225,4 +225,13 @@ if __name__ == "__main__":
 
     sys.exit (0)
 
-# vim: ts=4 sw=4 et
+
+# *********************************************************
+
+def debug_print (message):
+    timestamp = datetime.today ()
+    print timestamp.strftime ("%c") + ": " + message
+
+# *********************************************************
+
+# vim: ft=python ts=4 sw=4 et
