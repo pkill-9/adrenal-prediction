@@ -1,5 +1,8 @@
 \documentclass[a4paper]{article}
 
+\usepackage[english]{babel}
+\usepackage{blindtext}
+
 \title{Contrast between Cloud and HPC for health applications}
 \author{Matthew Signorini \and Richard Sinnott}
 
@@ -7,10 +10,13 @@
 
 \maketitle
 
-need an abstract here
+\begin{abstract}
+    \blindtext
+\end{abstract}
 
 \section{Introduction}
-
+including overview of adrenal tumours, why they are a problem, overview of
+the process used to predict malignancy.
 
 \section{Overview of HPC}
 room full of servers, managed in house by an organisation
@@ -22,6 +28,11 @@ keeping it running, backups, maintenance of hardware.
 \section{System Architechture}
 batch of classifications is broken into two sets, some to run on HPC, the 
 rest on cloud.
+
+\section{Performance}
+How much time when run sequentially? in parallel? also the time taken to
+spawn a new VM, which is not quick. This section will contain experimental
+design and results.
 
 \section{Conclusion}
 
