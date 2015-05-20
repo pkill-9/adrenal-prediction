@@ -1,5 +1,6 @@
 
 import os
+import sys
 import boto
 import time
 from boto.ec2.regioninfo import RegionInfo
@@ -32,7 +33,7 @@ def check_ready ():
             continue
 
 def debug_print (message):
-    print (message, file = sys.stderr)
+    print >> sys.stderr, message
 
 
 if __name__ == '__main__':
