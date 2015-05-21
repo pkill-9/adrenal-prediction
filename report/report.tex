@@ -3,43 +3,120 @@
 \usepackage[english]{babel}
 \usepackage{blindtext}
 
-\title{Supporting Seamless Access to Large Scale e-Infrastructures: A Case
+\title{Supporting Seamless Access to Large Scale e-Infrastructures\\ 
+    \large A Case
     Study in Use of High Performance Computing and Cloud-based Prediction
     for Diagnosis of Adrenal Tumour Types}
 \author{Matthew Signorini \and Richard Sinnott}
 
 \begin{document}
 
-\maketitle
+\begin{titlepage}
+    \maketitle
 
-\begin{abstract}
-    \blindtext
-\end{abstract}
+    \begin{abstract}
+        \blindtext
+    \end{abstract}
+
+    \tableofcontents
+\end{titlepage}
+
 
 \section{Introduction}
-including overview of adrenal tumours, why they are a problem, overview of
-the process used to predict malignancy.
+
+\subsection{Adrenal Tumours}
+Adrenal tumours are estimated to be present in around 2\% of people, and
+are almost always discovered incidentally, when a person has a CT scan
+done for an unrelated reason. These tumours also become more common as a
+person becomes older. With more people living to old age, and increasing
+use of CT scans, doctors are required to diagnose and decide on appropriate
+treatment for an increasing number of incidentally discovered adrenal
+tumours. 
+
+Of all adrenal tumour cases, only about 2 to 11\% are a malignant form
+called adrenocortical carcinoma. These tumours must be surgically
+removed, however the majority of adrenal tumour cases may not require
+urgent surgery, or may not require surgery at all. As we can see, there
+is a need for a method to determine tumour malignancy that is appropriate
+for routine screening of a large number of patients.
+
+One such screening method involves taking a urine sample, and measuring
+the levels of certain products of steroid metabolism, exploiting the fact
+that adrenal tumours have a different profile of steroid production
+compared to healthy adrenal gland tissue. The steroid levels are measured
+with GC-MS (gas chromatography followed by mass spectrometry), and
+software is then used to assess malignancy.
+
+Other techniqes include testing for markers that are found directly within
+the tumour, which is able to reliably discriminate malignant tumours from
+benign masses, but requires surgery to remove the adrenal mass
+first. This defeats the aim of avoiding unneccessary surgery, making this
+method unsuitable for routine screening. There is also a correlation between
+tumour size and density and malignancy, size and density being easy to
+measure with CT or
+MRI, however these methods have been found to be significantly less
+accurate than is desired. Another technique involves positron emmision
+tomography, and has been found to have very high sensitivity and 
+specificity, but has the disadvantage of being quite expensive.
+Computational analysis of urine sample data by comparison is simple, non
+invasive and inexpensive, making it the best suited for use in routine
+screening.
+
+
+
+
+% Adrenal tumours - prevalence, malignant/benign, outcomes for patients.
+% Process for predicting malignancy, advantages over other methods.
+% Analysis of the prediction algorithm.
+
 
 \section{Overview of HPC}
-room full of servers, managed in house by an organisation
-edward at unimelb.
+% room full of servers, managed in house by an organisation
+% edward at unimelb.
+% Advantages -:
+% Disadvantages
+% Historical development from supercomputing?
+\blindtext
+\blindtext
+\blindtext
+\blindtext
 
 \section{Overview of Cloud Computing}
-in this case, IaaS; we get access to a VM, someone else takes care of
-keeping it running, backups, maintenance of hardware.
-nectar, aws, azure
-iaas, paas, saas.
+% in this case, IaaS; we get access to a VM, someone else takes care of
+% keeping it running, backups, maintenance of hardware.
+% nectar, aws, azure
+% iaas, paas, saas.
+\blindtext
+\blindtext
+\blindtext
+\blindtext
 
 \section{System Architechture}
-batch of classifications is broken into two sets, some to run on HPC, the 
-rest on cloud.
+% batch of classifications is broken into two sets, some to run on HPC, the 
+% rest on cloud.
+\blindtext
+\blindtext
+\blindtext
+\blindtext
+
+\section{Front End}
+\blindtext
+\blindtext
+\blindtext
+\blindtext
 
 \section{Performance}
-How much time when run sequentially? in parallel? also the time taken to
-spawn a new VM, which is not quick. This section will contain experimental
-design and results.
+% How much time when run sequentially? in parallel? also the time taken to
+% spawn a new VM, which is not quick. This section will contain experimental
+% design and results.
+\blindtext
+\blindtext
+\blindtext
+\blindtext
 
-\section{Conclusion}
+\section{Conclusion and Future Work}
+\blindtext
+\blindtext
 
 
 \end{document}
