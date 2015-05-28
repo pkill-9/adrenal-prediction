@@ -24,6 +24,14 @@
 
 \section{Introduction}
 
+Computing is especially well suited to problems that require processing
+of very large ammounts of data. Such problems range from analysis of the
+human genome to the analysis of social media to isolate trends or make 
+predictions; compute intensive problems. We will be looking closely at one 
+example of this type of problem that is of interest to health 
+professionals, and that is the classification
+of the malignancy of adrenal tumour cases.
+
 \subsection{Adrenal Tumours}
 Adrenal tumours are estimated to be present in around 2\% of people, and
 are almost always discovered incidentally, when a person has a CT scan
@@ -34,11 +42,11 @@ treatment for an increasing number of incidentally discovered adrenal
 tumours. 
 
 Of all adrenal tumour cases, only about 2 to 11\% are a malignant form
-called adrenocortical carcinoma. These tumours must be surgically
+called adrenocortical carcinoma. These malignant tumours must be surgically
 removed, however the majority of adrenal tumour cases may not require
 urgent surgery, or may not require surgery at all. As we can see, there
 is a need for a method to determine tumour malignancy that is appropriate
-for routine screening of a large number of patients.
+for the routine screening of a large number of patients.
 
 One such screening method involves taking a urine sample, and measuring
 the levels of certain products of steroid metabolism, exploiting the fact
@@ -47,7 +55,8 @@ compared to healthy adrenal gland tissue. The steroid levels are measured
 with GC-MS (gas chromatography followed by mass spectrometry), and
 software is then used to assess malignancy.
 
-Other techniqes include testing for markers that are found directly within
+Other techniqes that could be used include testing for markers that are 
+found directly within
 the tumour, which is able to reliably discriminate malignant tumours from
 benign masses, but requires surgery to remove the adrenal mass
 first. This defeats the aim of avoiding unneccessary surgery, making this
@@ -61,6 +70,43 @@ specificity, but has the disadvantage of being quite expensive.
 Computational analysis of urine sample data by comparison is simple, non
 invasive and inexpensive, making it the best suited for use in routine
 screening.
+
+
+\subsection{Machine Learning}
+The task that the software component is faced with is referred to as
+classification in the context of statistics and machine learning. Each
+set of steroid levels from a patient constitutes an observation, or an
+instance, and a classification algorithm seeks to identify which category,
+malignant or benign, a new instance belongs to. The implementation of a
+classification algorithm in software will be referred to as a classifier.
+
+In machine learning terms, classification algorithms are supervised
+learning algorithms. This means that they must be trained on a set of
+labelled instances, being observations that are associated with the 
+actual category that each observation belongs to. In this case, labelled
+instances consist of steroid data associated with an actual diagnosis for
+that patient.
+
+
+\subsection{Performance of the Classifier}
+The performance of the classifier was measured in a study involving a large
+number of patients with adrenal tumours. In order to obtain labelled
+training instances, each patient in the study was ultimately given a
+malignant/benign diagnosis based on the evidence of metastasis or the
+lack thereof for the two respective categories. The study reported that
+they selected the most conclusively diagnosed patients for inclusion in
+the training set, which would ensure that the classifier can give the
+most reliable predictions possible since the learning algorithm would
+otherwise try to fit potential misdiagnoses. The study also excluded
+pregnant women and patients who were undergoing treatment with drugs such
+as steroids, that alter steroid secretion in urine.
+
+
+This project will explore the merits of two different models of large
+scale computing for running this software: high performance computing and
+cloud computing. We will also demonstrate how these two models can be used
+together, in a system that can adapt it's capacity as required, completely
+transparently to users.
 
 
 
@@ -78,8 +124,6 @@ screening.
 % Historical development from supercomputing?
 \blindtext
 \blindtext
-\blindtext
-\blindtext
 
 \section{Overview of Cloud Computing}
 % in this case, IaaS; we get access to a VM, someone else takes care of
@@ -88,20 +132,14 @@ screening.
 % iaas, paas, saas.
 \blindtext
 \blindtext
-\blindtext
-\blindtext
 
 \section{System Architechture}
 % batch of classifications is broken into two sets, some to run on HPC, the 
 % rest on cloud.
 \blindtext
 \blindtext
-\blindtext
-\blindtext
 
 \section{Front End}
-\blindtext
-\blindtext
 \blindtext
 \blindtext
 
@@ -111,11 +149,8 @@ screening.
 % design and results.
 \blindtext
 \blindtext
-\blindtext
-\blindtext
 
 \section{Conclusion and Future Work}
-\blindtext
 \blindtext
 
 
