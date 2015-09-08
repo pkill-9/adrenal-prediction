@@ -7,17 +7,18 @@
 
 
 cd ${PBS_O_WORKDIR}
+. const.sh
 
-touch "./running-jobs/${JOB_ID}"
+input_files=`ls ${INPUT_DIR} | head --lines=$(($1 + ${SAMPLES_PER_RUN})) | \
+    tail --lines=${SAMPLES_PER_RUN}`
 
 module purge
 module load octave/3.8.2
 
-input_file="${input_dir}/${base_name}.in"
-output_file="${output_dir}/${base_name}.out"
-
-octave -q ./prediction_script.m --classifier 1 < ${input_file} > ${output_file}
-
-rm -f "./running-jobs/${JOB_ID}"
+for input_file in ${input_files}
+do
+    output_file=${OUTPUT_DIR}/`basename ${input_file}`
+    octave -q ./prediction_script.m --classifier 1 < ${input_file} > ${output_file}
+done
 
 # vim: ts=4 sw=4 et
